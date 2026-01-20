@@ -6,104 +6,146 @@
 }
 
 body {
-    font-family: 'Segoe UI', sans-serif;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     background-color: var(--bg);
     color: var(--text);
     margin: 0;
+    -webkit-tap-highlight-color: transparent; /* Убирает синий блик при нажатии на мобильных */
 }
 
+/* --- ШАПКА --- */
 header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 50px;
-    background: rgba(30, 41, 59, 0.7);
-    backdrop-filter: blur(10px);
+    padding: 20px 5%;
+    background: rgba(30, 41, 59, 0.8);
+    backdrop-filter: blur(12px);
     border-bottom: 1px solid #334155;
+    position: sticky;
+    top: 0;
+    z-index: 50;
 }
 
-.logo { font-size: 24px; font-weight: bold; }
+.logo { font-size: 22px; font-weight: bold; }
 .logo span { color: var(--accent); }
 
+.user-info { font-size: 0.9rem; opacity: 0.8; }
+
+.btn-add {
+    background: var(--accent);
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+/* --- СЕТКА МАШИН --- */
 .grid {
     display: grid;
+    /* Автоматическое создание колонок, которые не меньше 280px */
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 20px;
-    padding: 40px 50px;
+    padding: 30px 5%;
 }
 
 .vm-card {
     background: var(--card-bg);
-    border-radius: 15px;
-    padding: 20px;
+    border-radius: 16px;
+    padding: 24px;
     border: 1px solid #334155;
-    transition: transform 0.3s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
-.vm-card:hover { transform: translateY(-5px); border-color: var(--accent); }
-
-.vm-card h3 { margin-top: 0; color: var(--accent); }
-.vm-card .author { font-size: 0.8rem; color: #94a3b8; }
-
-.btn-run {
-    background: var(--accent);
-    border: none;
-    padding: 10px 20px;
-    border-radius: 8px;
-    color: #000;
-    font-weight: bold;
-    cursor: pointer;
-    margin-top: 15px;
-    width: 100%;
-}
-
-/* Модальные окна */
+/* --- МОДАЛЬНЫЕ ОКНА --- */
 .overlay {
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.8);
+    background: rgba(0, 0, 0, 0.85);
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 100;
+    z-index: 1000;
+    padding: 20px; /* Отступ для мобильных, чтобы окно не прилипало к краям */
+    box-sizing: border-box;
 }
-
-.hidden { display: none; }
 
 .modal {
     background: var(--card-bg);
     padding: 30px;
     border-radius: 20px;
-    width: 400px;
-    text-align: center;
+    width: 100%;
+    max-width: 450px; /* Максимальная ширина на ПК */
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
 }
 
-input[type="text"] {
+input[type="text"], input[type="file"] {
     width: 100%;
-    padding: 12px;
-    margin: 10px 0;
-    border-radius: 8px;
+    padding: 14px;
+    margin: 12px 0;
+    border-radius: 10px;
     border: 1px solid #334155;
     background: #0f172a;
     color: white;
     box-sizing: border-box;
+    font-size: 16px; /* Важно: 16px предотвращает авто-зум в iOS */
 }
 
-/* Терминал симуляции */
+/* --- ТЕРМИНАЛ (ЗАПУСК) --- */
 .terminal {
-    background: black;
-    width: 80%;
-    height: 70%;
-    border-radius: 10px;
+    background: #000;
+    width: 100%;
+    height: 100%;
+    max-width: 900px;
+    max-height: 600px;
+    border-radius: 12px;
     padding: 20px;
     font-family: 'Courier New', monospace;
-    color: #00ff00;
+    color: #4ade80;
     overflow-y: auto;
     position: relative;
+    border: 1px solid #334155;
 }
 
-.btn-exit {
-    position: absolute;
-    top: 10px; right: 10px;
-    background: red; color: white; border: none; cursor: pointer;
+/* --- АДАПТИВНОСТЬ ДЛЯ МОБИЛЬНЫХ (MEDIA QUERIES) --- */
+
+@media (max-width: 768px) {
+    header {
+        flex-direction: column; /* Элементы в шапке встают друг под друга */
+        gap: 15px;
+        text-align: center;
+        padding: 15px;
+    }
+
+    .btn-add {
+        width: 100%; /* Кнопка на весь экран на телефоне */
+    }
+
+    .grid {
+        grid-template-columns: 1fr; /* Только одна колонка */
+        padding: 20px;
+    }
+
+    .modal {
+        padding: 20px;
+    }
+
+    h2 { font-size: 1.5rem; }
 }
+
+@media (max-height: 500px) and (orientation: landscape) {
+    /* Настройки для телефонов в горизонтальном режиме */
+    .modal {
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+    .terminal {
+        height: 90vh;
+    }
+}
+
+.hidden { display: none; }
