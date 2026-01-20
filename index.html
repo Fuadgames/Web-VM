@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CloudVM - Virtual Machine Manager</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="login-overlay" class="overlay">
+        <div class="modal">
+            <h2>Добро пожаловать в CloudVM</h2>
+            <p>Введите ваше имя, чтобы продолжить</p>
+            <input type="text" id="username-input" placeholder="Ваше имя...">
+            <button onclick="login()">Войти</button>
+        </div>
+    </div>
+
+    <header>
+        <div class="logo">Cloud<span>VM</span></div>
+        <div class="user-info">Пользователь: <span id="user-display">...</span></div>
+        <button class="btn-add" onclick="toggleModal(true)">+ Создать ВМ</button>
+    </header>
+
+    <main>
+        <section class="vm-section">
+            <h2>Доступные виртуальные машины</h2>
+            <div id="vm-grid" class="grid">
+                </div>
+        </section>
+    </main>
+
+    <div id="vm-modal" class="overlay hidden">
+        <div class="modal">
+            <h3>Создать новую ВМ</h3>
+            <input type="text" id="vm-name" placeholder="Название машины">
+            <div class="file-input">
+                <label for="iso-file">Выберите ISO образ:</label>
+                <input type="file" id="iso-file" accept=".iso">
+            </div>
+            <div class="checkbox-group">
+                <input type="checkbox" id="is-public">
+                <label for="is-public">Опубликовать для всех</label>
+            </div>
+            <div class="modal-buttons">
+                <button class="btn-cancel" onclick="toggleModal(false)">Отмена</button>
+                <button class="btn-save" onclick="createVM()">Создать</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="boot-screen" class="overlay hidden">
+        <div class="terminal">
+            <div id="boot-log"></div>
+            <button class="btn-exit" onclick="closeVM()">Завершить работу</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
