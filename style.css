@@ -1,0 +1,109 @@
+:root {
+    --bg: #0f172a;
+    --card-bg: #1e293b;
+    --accent: #38bdf8;
+    --text: #f1f5f9;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    margin: 0;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+    background: rgba(30, 41, 59, 0.7);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid #334155;
+}
+
+.logo { font-size: 24px; font-weight: bold; }
+.logo span { color: var(--accent); }
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    padding: 40px 50px;
+}
+
+.vm-card {
+    background: var(--card-bg);
+    border-radius: 15px;
+    padding: 20px;
+    border: 1px solid #334155;
+    transition: transform 0.3s;
+}
+
+.vm-card:hover { transform: translateY(-5px); border-color: var(--accent); }
+
+.vm-card h3 { margin-top: 0; color: var(--accent); }
+.vm-card .author { font-size: 0.8rem; color: #94a3b8; }
+
+.btn-run {
+    background: var(--accent);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    color: #000;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 15px;
+    width: 100%;
+}
+
+/* Модальные окна */
+.overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+.hidden { display: none; }
+
+.modal {
+    background: var(--card-bg);
+    padding: 30px;
+    border-radius: 20px;
+    width: 400px;
+    text-align: center;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: 1px solid #334155;
+    background: #0f172a;
+    color: white;
+    box-sizing: border-box;
+}
+
+/* Терминал симуляции */
+.terminal {
+    background: black;
+    width: 80%;
+    height: 70%;
+    border-radius: 10px;
+    padding: 20px;
+    font-family: 'Courier New', monospace;
+    color: #00ff00;
+    overflow-y: auto;
+    position: relative;
+}
+
+.btn-exit {
+    position: absolute;
+    top: 10px; right: 10px;
+    background: red; color: white; border: none; cursor: pointer;
+}
